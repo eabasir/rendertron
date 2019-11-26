@@ -14,7 +14,7 @@ type ViewportDimensions = {
 };
 
 const MOBILE_USERAGENT =
-  'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
+  'Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Mobile Safari/537.36 bot';
 
 /**
  * Wraps Puppeteer's interface to Headless Chrome to expose high level rendering
@@ -73,8 +73,12 @@ export class Renderer {
     // https://github.com/GoogleChrome/puppeteer/blob/v1.10.0/docs/api.md#pagesetviewportviewport
     await page.setViewport({ width: this.config.width, height: this.config.height, isMobile });
 
+    const defaultAgent = await this.browser.userAgent();
+
     if (isMobile) {
       page.setUserAgent(MOBILE_USERAGENT);
+    } else {
+      page.setUserAgent(defaultAgent + ' bot')
     }
 
     console.log(`page is loaded in ${isMobile ? 'mobile' : 'desktop'} mode`);
