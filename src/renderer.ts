@@ -16,9 +16,6 @@ type ViewportDimensions = {
 const MOBILE_USERAGENT =
   'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 
-const DESKTOP_USERAGENT =
-  'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
-
 /**
  * Wraps Puppeteer's interface to Headless Chrome to expose high level rendering
  * APIs that are able to handle web components and PWAs.
@@ -76,7 +73,9 @@ export class Renderer {
     // https://github.com/GoogleChrome/puppeteer/blob/v1.10.0/docs/api.md#pagesetviewportviewport
     await page.setViewport({ width: this.config.width, height: this.config.height, isMobile });
 
-    page.setUserAgent(isMobile ? MOBILE_USERAGENT : DESKTOP_USERAGENT);
+    if (isMobile) {
+      page.setUserAgent(MOBILE_USERAGENT);
+    }
 
     console.log(`page is loaded in ${isMobile ? 'mobile' : 'desktop'} mode`);
 
@@ -185,7 +184,9 @@ export class Renderer {
     await page.setViewport(
       { width: dimensions.width, height: dimensions.height, isMobile });
 
-    page.setUserAgent(isMobile ? MOBILE_USERAGENT : DESKTOP_USERAGENT);
+    if (isMobile) {
+      page.setUserAgent(MOBILE_USERAGENT);
+    }
 
     console.log(`page is loaded in ${isMobile ? 'mobile' : 'desktop'} mode`);
 
