@@ -78,6 +78,8 @@ export class Renderer {
 
     page.setUserAgent(isMobile ? MOBILE_USERAGENT : DESKTOP_USERAGENT);
 
+    console.log(`page is loaded in ${isMobile ? 'mobile' : 'desktop'} mode`);
+
     page.evaluateOnNewDocument('customElements.forcePolyfill = true');
     page.evaluateOnNewDocument('ShadyDOM = {force: true}');
     page.evaluateOnNewDocument('ShadyCSS = {shimcssproperties: true}');
@@ -185,6 +187,7 @@ export class Renderer {
 
     page.setUserAgent(isMobile ? MOBILE_USERAGENT : DESKTOP_USERAGENT);
 
+    console.log(`page is loaded in ${isMobile ? 'mobile' : 'desktop'} mode`);
 
     let response: puppeteer.Response | null = null;
 
