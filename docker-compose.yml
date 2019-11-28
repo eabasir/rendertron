@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  rendertron:
+    build:
+      context: .
+      shm_size: '1gb'
+    image: rendertron
+    container_name: rendertron
+    cap_add:
+      - SYS_ADMIN
+    network_mode: "host"
+    restart: always
+    volumes:
+     - .:/rendertron
