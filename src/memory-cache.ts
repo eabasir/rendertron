@@ -37,7 +37,7 @@ export class MemoryCache {
     this.store.clear();
   }
 
-  cacheContent(key: string, headers: {[key: string]: string}, payload: Buffer) {
+  cacheContent(key: string, headers: { [key: string]: string }, payload: Buffer) {
     // if the cache gets too big, we evict the least recently used entry (i.e. the first value in the map)
     if (this.store.size >= CACHE_MAX_ENTRIES) {
       const keyToDelete = this.store.keys().next().value;
@@ -46,7 +46,7 @@ export class MemoryCache {
 
     //remove refreshCache from URL
     let cacheKey = key
-        .replace(/&?refreshCache=(?:true|false)&?/i, '');
+      .replace(/&?refreshCache=(?:true|false)&?/i, '');
 
     if (cacheKey.charAt(cacheKey.length - 1) === '?') {
       cacheKey = cacheKey.slice(0, -1);
@@ -79,6 +79,7 @@ export class MemoryCache {
   private async handleRequest(ctx: Koa.Context, next: () => Promise<unknown>) {
     // Cache based on full URL. This means requests with different params are
     // cached separately.
+    console.log(' -> ', 'request is here on cashing...');
     const cacheKey = ctx.url;
     const cachedContent = this.getCachedContent(ctx, cacheKey);
     if (cachedContent) {
