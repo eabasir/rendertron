@@ -10,5 +10,3 @@ services:
       - SYS_ADMIN
     network_mode: "host"
     restart: always
-    volumes:
-     - ".:/rendertron"
